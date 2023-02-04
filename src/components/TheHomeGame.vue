@@ -2,11 +2,11 @@
 import { ref } from 'vue';
 import TheGrid from './TheGrid.vue';
 
-let isFirstRound = ref(false)
+let isFirstRound = ref(true)
 let isSecondRound = ref(false)
 let isThirdRound = ref(false)
 let isFourthRound = ref(false)
-let isFifthRound = ref(true)
+let isFifthRound = ref(false)
 
 
 </script>
