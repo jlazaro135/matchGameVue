@@ -1,8 +1,12 @@
 <script setup>
-import { ref, toRefs, computed } from 'vue';
+import { ref, toRefs } from 'vue';
 import { countryCodeIban } from '../js/flags';
 import shuffleArray from '../js/utils';
-import TheModal from '../TheModal.vue';
+import TheModal from './TheModal.vue';
+import  { useOpenModalStore } from '../stores/openModal';
+
+const useOpenModal = useOpenModalStore() 
+
 
 const props = defineProps({
     cards: {
@@ -15,12 +19,14 @@ const props = defineProps({
     nextLevel: {
         type: Number,
         default: 2
-    }
+    },
+    grid: String
 })
 
 const { cards } = toRefs(props)
 
 let cardsNumber = cards.value
+
 
 let flagsForGame = []
 
@@ -38,8 +44,6 @@ let selectedFlags = ref([])
 
 let guessedFlags = ref([])
 
-let levelIsBeaten = ref(false)
-
 function flipCard(index, flag){
     if(guessedFlags.value.some(guessedFlag => guessedFlag === flag))return
     if(selectedFlags.value.length === 2)return
@@ -50,15 +54,15 @@ function flipCard(index, flag){
         if(selectedFlags.value[0].flag === selectedFlags.value[1].flag){
             setTimeout(function(){
                 guessedFlags.value = [...guessedFlags.value, selectedFlags.value[0].flag]
-            }, 400)
+                selectedFlags.value = []
+                if(guessedFlags.value.length === flagsForGame.length/2)setTimeout(()=> useOpenModal.isOpen = true, 500 )
+            }, 200)
+            return
         }
         setTimeout(function(){
             selectedFlags.value = []
-            if(guessedFlags.value.length === flagsForGame.length/2)levelIsBeaten.value = !levelIsBeaten.value 
         },1000)
-
     }
-    console.log(guessedFlags.value.length === flagsForGame.length/2)
 }
 
 
@@ -84,7 +88,7 @@ function flipCard(index, flag){
     <TheModal
     :level="level" 
     :nextLevel="nextLevel"
-    :isOpen="levelIsBeaten"
+    :grid="grid"
     />
 </template>
 
@@ -139,6 +143,7 @@ transform: rotateY(180deg);
 transform: rotateY(180deg);
 position: relative;
 background-color: transparent;
+animation: rotateCardGuessed 500ms forwards;
 }
 
 .card-is-guessed:after{
@@ -176,5 +181,15 @@ background-color: transparent;
 
 .img{
     border-radius: 5px;
+}
+
+@keyframes rotateCardGuessed{
+    0% {
+        transform:rotateY(180deg) rotate(0);
+
+    }
+    100% {
+        transform:rotateY(180deg) rotate(360deg);
+    }
 }
 </style>

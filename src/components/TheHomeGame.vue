@@ -1,13 +1,10 @@
 <script setup>
-import { ref } from 'vue';
 import TheGrid from './TheGrid.vue';
+import { useGridStore } from '../stores/grid';
+import { storeToRefs } from 'pinia';
 
-let isFirstRound = ref(false)
-let isSecondRound = ref(true)
-let isThirdRound = ref(false)
-let isFourthRound = ref(false)
-let isFifthRound = ref(false)
-
+const useGrid = useGridStore()
+const {isFirstRound, isSecondRound, isThirdRound, isFourthRound,isFifthRound} = storeToRefs(useGrid)
 
 </script>
 
@@ -18,6 +15,7 @@ let isFifthRound = ref(false)
         :cards = 8
         :level = 1
         :next-level = 2
+        grid = 'first'
         />
     </div>
     <div v-else-if="isSecondRound">
@@ -25,6 +23,7 @@ let isFifthRound = ref(false)
         :cards = 12
         :level = 2
         :next-level = 3
+        grid = 'second'
         />
     </div>
     <div v-else-if="isThirdRound">
@@ -32,6 +31,7 @@ let isFifthRound = ref(false)
         :cards = 16
         :level = 3
         :next-level = 4
+        grid = 'third'
         />
     </div>
     <div v-else-if="isFourthRound">
@@ -39,6 +39,7 @@ let isFifthRound = ref(false)
         :cards = 20
         :level = 4
         :next-level = 5
+        grid = 'fourth'
         />
     </div>
     <div v-else-if="isFifthRound">
@@ -46,6 +47,7 @@ let isFifthRound = ref(false)
         :cards = 24
         :level = 5
         :next-level = 99
+        grid = 'fifth'
         />
     </div>
   </main>
