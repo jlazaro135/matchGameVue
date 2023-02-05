@@ -1,15 +1,19 @@
 <script setup>
 import TheGrid from './TheGrid.vue';
+import TheStart from './TheStart.vue';
 import { useGridStore } from '../stores/grid';
 import { storeToRefs } from 'pinia';
 
 const useGrid = useGridStore()
-const {isFirstRound, isSecondRound, isThirdRound, isFourthRound,isFifthRound} = storeToRefs(useGrid)
+const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isFifthRound} = storeToRefs(useGrid)
 
 </script>
 
 <template>
   <main class="container">
+    <div class="start-view" v-if="isStartView">
+        <TheStart />
+    </div>
     <div v-if="isFirstRound">
         <TheGrid 
         :cards = 8
@@ -54,5 +58,15 @@ const {isFirstRound, isSecondRound, isThirdRound, isFourthRound,isFifthRound} = 
 </template>
 
 <style scoped>
-
+.start-view{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
 </style>

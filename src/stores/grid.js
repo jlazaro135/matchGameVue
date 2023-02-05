@@ -3,7 +3,8 @@ import { ref } from "vue";
 
 export const useGridStore = defineStore("grid", () => {
 
-    let isFirstRound = ref(true)
+    let isStartView = ref(true)
+    let isFirstRound = ref(false)
     let isSecondRound = ref(false)
     let isThirdRound = ref(false)
     let isFourthRound = ref(false)
@@ -11,6 +12,7 @@ export const useGridStore = defineStore("grid", () => {
     let isTheEnd = ref(false)
 
     return {
+        isStartView,
         isFirstRound,
         isSecondRound,
         isThirdRound,
