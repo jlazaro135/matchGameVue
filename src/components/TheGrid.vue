@@ -1,11 +1,20 @@
 <script setup>
-import { ref, toRefs } from 'vue';
+import { ref, toRefs, computed } from 'vue';
 import { countryCodeIban } from '../js/flags';
 import shuffleArray from '../js/utils';
+import TheModal from '../TheModal.vue';
 
 const props = defineProps({
     cards: {
         type: Number,
+    },
+    level: {
+        type: Number,
+        default: 1,
+    },
+    nextLevel: {
+        type: Number,
+        default: 2
     }
 })
 
@@ -29,6 +38,7 @@ let selectedFlags = ref([])
 
 let guessedFlags = ref([])
 
+let levelIsBeaten = ref(false)
 
 function flipCard(index, flag){
     if(guessedFlags.value.some(guessedFlag => guessedFlag === flag))return
@@ -40,14 +50,17 @@ function flipCard(index, flag){
         if(selectedFlags.value[0].flag === selectedFlags.value[1].flag){
             setTimeout(function(){
                 guessedFlags.value = [...guessedFlags.value, selectedFlags.value[0].flag]
-            }, 799)
+            }, 400)
         }
         setTimeout(function(){
             selectedFlags.value = []
-        },800)
-    }
+            if(guessedFlags.value.length === flagsForGame.length/2)levelIsBeaten.value = !levelIsBeaten.value 
+        },1000)
 
+    }
+    console.log(guessedFlags.value.length === flagsForGame.length/2)
 }
+
 
 </script>   
 
@@ -68,6 +81,11 @@ function flipCard(index, flag){
             </div>
         </div>
     </div>
+    <TheModal
+    :level="level" 
+    :nextLevel="nextLevel"
+    :isOpen="levelIsBeaten"
+    />
 </template>
 
  
