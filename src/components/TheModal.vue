@@ -4,9 +4,12 @@ import { storeToRefs } from 'pinia';
 import { toRefs,  } from 'vue';
 import { useGridStore } from '../stores/grid.js';
 import { useOpenModalStore } from '../stores/openModal.js';
+import  { useCounterStore } from '../stores/counter';
+
 
 const useGrid = useGridStore()
 const useOpenModal = useOpenModalStore()
+const useCounter = useCounterStore()
 
 const {isOpen} = storeToRefs(useOpenModal)
 
@@ -31,6 +34,7 @@ const {grid} = toRefs(props)
 
 function goToNext(){
   useOpenModal.isOpen = false
+  useCounter.levelCounter = 0
   switch(grid.value){
     case 'first':
       useGrid.isFirstRound = false
@@ -66,7 +70,7 @@ function goToNext(){
         Has conseguido completar el nivel en: 
     </p>
     <p>
-        xx-tiempo y xx intentos
+        xx-tiempo y {{ useCounter.levelCounter }} intentos
     </p>
     <footer>
       <button role="button" @click="goToNext()">Siguiente Nivel</button>

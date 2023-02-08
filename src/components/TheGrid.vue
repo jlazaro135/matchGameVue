@@ -1,12 +1,13 @@
 <script setup>
-import { ref, toRefs } from 'vue';
+import { ref, toRefs, onMounted } from 'vue';
 import { countryCodeIban } from '../js/flags';
 import shuffleArray from '../js/utils';
 import TheModal from './TheModal.vue';
 import  { useOpenModalStore } from '../stores/openModal';
+import  { useCounterStore } from '../stores/counter';
 
 const useOpenModal = useOpenModalStore() 
-
+const useCounter = useCounterStore() 
 
 const props = defineProps({
     cards: {
@@ -27,7 +28,6 @@ const { cards } = toRefs(props)
 
 let cardsNumber = cards.value
 
-
 let flagsForGame = []
 
 
@@ -44,13 +44,21 @@ let selectedFlags = ref([])
 
 let guessedFlags = ref([])
 
+let flipAllCards = ref(false)
+
+let cardsAreFlipped = ref(true)
+
 function flipCard(index, flag){
+    if (cardsAreFlipped.value) return
     if(guessedFlags.value.some(guessedFlag => guessedFlag === flag))return
     if(selectedFlags.value.length === 2)return
     let indexExist = selectedFlags.value.some(card => card.index === index)
     if(indexExist)return
     selectedFlags.value = [...selectedFlags.value, {index: index, flag: flag}]
     if(selectedFlags.value.length === 2){
+        useCounter.totalCounter ++
+        useCounter.levelCounter ++
+        console.log(useCounter.totalCounter, useCounter.levelCounter)
         if(selectedFlags.value[0].flag === selectedFlags.value[1].flag){
             setTimeout(function(){
                 guessedFlags.value = [...guessedFlags.value, selectedFlags.value[0].flag]
@@ -65,6 +73,14 @@ function flipCard(index, flag){
     }
 }
 
+onMounted(() => {
+    setTimeout(() => flipAllCards.value = true, 1000 )
+    setTimeout(() => {
+        flipAllCards.value = false
+        cardsAreFlipped.value = false
+    } , 2000 )
+})
+
 
 </script>   
 
@@ -73,7 +89,7 @@ function flipCard(index, flag){
         <div class="card" v-for="(ibanFlag, index) in flagsForGame" :key="index">
             <div class="card-inner" 
             :class="
-            {'card-is-flipped': selectedFlags.some(card => card.index === index)},
+            {'card-is-flipped': selectedFlags.some(card => card.index === index) || flipAllCards},
             {'card-is-guessed': guessedFlags.some(card => card === ibanFlag)}
             " 
             @click="flipCard(index, ibanFlag)">
