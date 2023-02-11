@@ -39,9 +39,9 @@ let countryCodeIbanCopy = [...countryCodeIban]
 
 for (let i=0; i<(cardsNumber/2); i++){
     const randomFlagIndex = Math.floor(Math.random() * countryCodeIbanCopy.length);
-    let ibanFlag = countryCodeIbanCopy[randomFlagIndex]
+    let country = countryCodeIbanCopy[randomFlagIndex]
     countryCodeIbanCopy.splice(randomFlagIndex, 1)
-    flagsForGame = [...flagsForGame ,...Array(2).fill(ibanFlag)]
+    flagsForGame = [...flagsForGame ,...Array(2).fill(country)]
 }
 
 shuffleArray(flagsForGame)
@@ -56,7 +56,7 @@ let cardsAreFlipped = ref(true)
 
 function flipCard(index, flag){
     if (cardsAreFlipped.value) return
-    if(guessedFlags.value.some(guessedFlag => guessedFlag === flag))return
+    if(guessedFlags.value.some(guessedFlag => guessedFlag.code === flag.code))return
     if(selectedFlags.value.length === 2)return
     let indexExist = selectedFlags.value.some(card => card.index === index)
     if(indexExist)return
@@ -64,7 +64,7 @@ function flipCard(index, flag){
     if(selectedFlags.value.length === 2){
         useCounter.totalCounter ++
         useCounter.levelCounter ++
-        if(selectedFlags.value[0].flag === selectedFlags.value[1].flag){
+        if(selectedFlags.value[0].flag.code === selectedFlags.value[1].flag.code){
             setTimeout(function(){
                 guessedFlags.value = [...guessedFlags.value, selectedFlags.value[0].flag]
                 selectedFlags.value = []
@@ -96,17 +96,18 @@ onMounted(() => {
 
 <template>      
     <div class="o-flex"> 
-        <div class="card" v-for="(ibanFlag, index) in flagsForGame" :key="index">
+        <div class="card" v-for="(country, index) in flagsForGame" :key="index">
             <div class="card-inner" 
             :class="
             {'card-is-flipped': selectedFlags.some(card => card.index === index) || flipAllCards},
-            {'card-is-guessed': guessedFlags.some(card => card === ibanFlag)}
+            {'card-is-guessed': guessedFlags.some(card => card.code === country.code)}
             " 
-            @click="flipCard(index, ibanFlag)">
+            @click="flipCard(index, country)">
                 <div class="flag-wrapper card-front">
                 </div>
                 <div class="flag-wrapper card-back">
-                    <img crossorigin="anonymous" class="img" :src="`https://countryflagsapi.com/svg/${ibanFlag}`" alt="bander">
+                    <img crossorigin="anonymous" class="img" :src="`https://flagcdn.com/w160/${country.code}.png`" alt="bandera">
+                    <span class="country-name">{{ country.country }}</span>
                 </div>
             </div>
         </div>
@@ -205,11 +206,18 @@ animation: rotateCardGuessed 500ms forwards;
     height: 100%;
     background-color: #dfdfdf;
     display: grid;
-    place-content: center;
+    place-content: space-between;
+    gap: 0.1rem;
 }
 
 .img{
     border-radius: 5px;
+}
+.country-name{
+    font-size: 0.5rem;
+    line-height: 1;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 @keyframes rotateCardGuessed{
