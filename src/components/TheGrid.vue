@@ -34,13 +34,15 @@ let cardsNumber = cards.value
 
 let flagsForGame = []
 
+let countryCodeIbanCopy = [...countryCodeIban]
+
 
 for (let i=0; i<(cardsNumber/2); i++){
-    const randomFlagIndex = Math.floor(Math.random() * countryCodeIban.length);
-    let ibanFlag = countryCodeIban[randomFlagIndex]
+    const randomFlagIndex = Math.floor(Math.random() * countryCodeIbanCopy.length);
+    let ibanFlag = countryCodeIbanCopy[randomFlagIndex]
+    countryCodeIbanCopy.splice(randomFlagIndex, 1)
     flagsForGame = [...flagsForGame ,...Array(2).fill(ibanFlag)]
 }
-
 
 shuffleArray(flagsForGame)
 
@@ -66,12 +68,11 @@ function flipCard(index, flag){
             setTimeout(function(){
                 guessedFlags.value = [...guessedFlags.value, selectedFlags.value[0].flag]
                 selectedFlags.value = []
-                console.log(guessedFlags.value.length, flagsForGame.length/2)
                 if(guessedFlags.value.length === flagsForGame.length/2){
                     useTimer.stopInterval = true
                     setTimeout(()=> {
                     useOpenModal.isOpen = true
-                    }, 500 )
+                    }, 500)
                 }
             }, 200)
             return
