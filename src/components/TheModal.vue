@@ -5,10 +5,10 @@ import { toRefs,  } from 'vue';
 import { useGridStore } from '../stores/grid.js';
 import { useOpenModalStore } from '../stores/openModal.js';
 import  { useCounterStore } from '../stores/counter';
-
-
+import  { useTimerStore } from '../stores/timer';
 const useGrid = useGridStore()
 const useOpenModal = useOpenModalStore()
+const useTimer = useTimerStore()
 const useCounter = useCounterStore()
 
 const {isOpen} = storeToRefs(useOpenModal)
@@ -35,6 +35,10 @@ const {grid} = toRefs(props)
 function goToNext(){
   useOpenModal.isOpen = false
   useCounter.levelCounter = 0
+  useTimer.stopInterval = false
+  useTimer.totalLevelSeconds= 0
+  useTimer.levelSeconds= '00'
+  useTimer.levelMinutes= '00'
   switch(grid.value){
     case 'first':
       useGrid.isFirstRound = false

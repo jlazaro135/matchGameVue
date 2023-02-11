@@ -14,7 +14,7 @@ const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isF
     <div class="start-view" v-if="isStartView">
         <TheStart />
     </div>
-    <div v-if="isFirstRound">
+     <div class="grid-wrapper" v-if="isFirstRound">
         <TheGrid 
         :cards = 8
         :level = 1
@@ -22,7 +22,7 @@ const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isF
         grid = 'first'
         />
     </div>
-    <div v-else-if="isSecondRound">
+    <div class="grid-wrapper" v-else-if="isSecondRound">
         <TheGrid 
         :cards = 12
         :level = 2
@@ -30,7 +30,7 @@ const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isF
         grid = 'second'
         />
     </div>
-    <div v-else-if="isThirdRound">
+    <div class="grid-wrapper" v-else-if="isThirdRound">
         <TheGrid 
         :cards = 16
         :level = 3
@@ -38,7 +38,7 @@ const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isF
         grid = 'third'
         />
     </div>
-    <div v-else-if="isFourthRound">
+    <div class="grid-wrapper" v-else-if="isFourthRound">
         <TheGrid 
         :cards = 20
         :level = 4
@@ -46,7 +46,7 @@ const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isF
         grid = 'fourth'
         />
     </div>
-    <div v-else-if="isFifthRound">
+    <div class="grid-wrapper" v-else-if="isFifthRound">
         <TheGrid 
         :cards = 24
         :level = 5
@@ -68,5 +68,13 @@ const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isF
     text-align: center;
     max-width: 400px;
     width: 100%;
+}
+
+.grid-wrapper{
+    position: static;
+}
+
+.container{
+    position: static;
 }
 </style>

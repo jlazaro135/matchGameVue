@@ -5,6 +5,10 @@ import shuffleArray from '../js/utils';
 import TheModal from './TheModal.vue';
 import  { useOpenModalStore } from '../stores/openModal';
 import  { useCounterStore } from '../stores/counter';
+import TheDisplayGame from './TheDisplayGame.vue';
+import { useTimerStore } from '../stores/timer';
+
+const useTimer = useTimerStore()
 
 const useOpenModal = useOpenModalStore() 
 const useCounter = useCounterStore() 
@@ -58,12 +62,17 @@ function flipCard(index, flag){
     if(selectedFlags.value.length === 2){
         useCounter.totalCounter ++
         useCounter.levelCounter ++
-        console.log(useCounter.totalCounter, useCounter.levelCounter)
         if(selectedFlags.value[0].flag === selectedFlags.value[1].flag){
             setTimeout(function(){
                 guessedFlags.value = [...guessedFlags.value, selectedFlags.value[0].flag]
                 selectedFlags.value = []
-                if(guessedFlags.value.length === flagsForGame.length/2)setTimeout(()=> useOpenModal.isOpen = true, 500 )
+                console.log(guessedFlags.value.length, flagsForGame.length/2)
+                if(guessedFlags.value.length === flagsForGame.length/2){
+                    useTimer.stopInterval = true
+                    setTimeout(()=> {
+                    useOpenModal.isOpen = true
+                    }, 500 )
+                }
             }, 200)
             return
         }
@@ -105,6 +114,9 @@ onMounted(() => {
     :level="level" 
     :nextLevel="nextLevel"
     :grid="grid"
+    />
+    <TheDisplayGame 
+    :level="level"
     />
 </template>
 
