@@ -5,6 +5,7 @@ import { useOpenModalStore } from '../stores/openModal.js';
 import  { useCounterStore } from '../stores/counter';
 import  { useTimerStore } from '../stores/timer';
 import  { usePointsStore } from '../stores/points';
+import  { useResultStore } from '../stores/result';
 import { storeToRefs } from 'pinia';
 import { toRefs } from 'vue';
 
@@ -13,6 +14,7 @@ const useOpenModal = useOpenModalStore()
 const useTimer = useTimerStore()
 const useCounter = useCounterStore()
 const usePoints = usePointsStore()
+const useResult = useResultStore()
 
 const {isOpen} = storeToRefs(useOpenModal)
 
@@ -33,18 +35,21 @@ const props = defineProps({
     }
 })
 
-const {grid} = toRefs(props)
+const {grid, level} = toRefs(props)
 
 function goToNext(){
   useOpenModal.isOpen = false
+  useResult.resultsArr.push({level: level.value, time:useTimer.totalLevelSeconds, mistakes: useCounter.levelCounter, points: usePoints.finalPoints().totalPoints() })
+  console.log(useResult.resultsArr)
+  usePoints.levelPointsArr.push(usePoints.finalPoints().totalPoints())
   useTimer.stopInterval = false
   useTimer.totalTimer += useTimer.totalLevelSeconds
   useTimer.totalLevelSecondsArr.push(useTimer.totalLevelSeconds)
   useTimer.totalLevelSeconds = 0
-  useCounter.levelCounterArr.push(useCounter.levelCounter)
-  useCounter.levelCounter = 0
   useTimer.levelSeconds= '00'
   useTimer.levelMinutes= '00'
+  useCounter.levelCounterArr.push(useCounter.levelCounter)
+  useCounter.levelCounter = 0
   switch(grid.value){
     case 'first':
       useGrid.isFirstRound = false
@@ -64,7 +69,7 @@ function goToNext(){
       break
     case 'fifth':
       useGrid.isFifthRound = false
-      useGrid.isTheEnd = true
+      useGrid.isEndView = true
       break
     }
 }
@@ -75,9 +80,9 @@ function goToNext(){
 <template>
 <dialog :open="isOpen">
   <article>
-    <h3>Nivel {{ level }} superado</h3>
+    <h3>Ronda {{ level }} superada</h3>
     <p class="para">
-        Has conseguido completar el nivel en: 
+        Has conseguido completar la ronda en: 
     </p>
     <p class="results">
       <div class="wrapper">
@@ -98,6 +103,7 @@ function goToNext(){
           <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
         </svg>
       Pleno de aciertos
+      <span class="extra success" v-if="usePoints.finalPoints().extra !== 0">+{{ usePoints.finalPoints().extra }} puntos</span>
       </div>
       <div v-else class="wrapper danger">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
@@ -115,11 +121,11 @@ function goToNext(){
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
         <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
       </svg>
-      {{ usePoints.finalPoints() }} puntos
+      {{ usePoints.finalPoints().totalPoints() }} puntos
       </div>
     </p>
     <footer>
-      <button role="button" @click="goToNext()">Siguiente Nivel</button>
+      <button role="button" @click="goToNext()">{{ useGrid.isFifthRound ? 'Ver Resultados' : 'Siguiente Ronda' }}</button>
     </footer>
   </article>
 </dialog>
@@ -143,8 +149,9 @@ h3{
 .wrapper{
   font-weight: 900;
   display: flex;
-  gap: 0.3rem;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 }
 
 .para{
@@ -158,6 +165,15 @@ h3{
 
 .danger{
   color: red;
+}
+
+.extra{
+  width: 100%;
+  text-align: center;
+}
+
+svg{
+  margin-right: 0.5rem;
 }
 
 </style>

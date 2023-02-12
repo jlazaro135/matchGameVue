@@ -17,7 +17,7 @@ const renderLevel = ref(props.level)
 
 <template>
     <div class="box-game">
-        <span class="level">Nivel {{renderLevel}}</span>
+        <span class="level">Ronda {{renderLevel}}</span>
         <span class="level-counter">
             Fallos:
             <span class="counter">{{useCounter.levelCounter }}</span>

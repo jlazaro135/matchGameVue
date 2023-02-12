@@ -1,11 +1,13 @@
 <script setup>
 import TheGrid from './TheGrid.vue';
 import TheStart from './TheStart.vue';
+import TheEnd from './TheEnd.vue';
+import TheRanking from './TheRanking.vue';
 import { useGridStore } from '../stores/grid';
 import { storeToRefs } from 'pinia';
 
 const useGrid = useGridStore()
-const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isFifthRound} = storeToRefs(useGrid)
+const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isFifthRound, isEndView, isRankingView} = storeToRefs(useGrid)
 
 </script>
 
@@ -54,6 +56,12 @@ const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isF
         grid = 'fifth'
         />
     </div>
+    <div class="end-view" v-else-if="isEndView">
+        <TheEnd/>
+    </div>
+    <div class="end-view" v-else-if="isRankingView">
+        <TheRanking/>
+    </div>
   </main>
 </template>
 
@@ -67,6 +75,18 @@ const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isF
     align-items: center;
     text-align: center;
     max-width: 400px;
+    width: 100%;
+}
+
+.end-view{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
     width: 100%;
 }
 

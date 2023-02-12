@@ -1,0 +1,1 @@
+export const API_RANKING = 'https://x8ki-letl-twmt.n7.xano.io/api:hzcZic56:v1/'

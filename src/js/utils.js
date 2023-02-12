@@ -16,4 +16,18 @@ export default function shuffleArray(array) {
   
     return array;
   }
+
+export function pad(val) {
+    let valString = val + "";
+    if (valString.length < 2) {
+      return "0" + valString;
+    } else {
+      return valString;
+    }
+  }
+
+export function dateToLocale(date){
+  let d = new Date()
+  return d.toLocaleDateString(date)
+}
   

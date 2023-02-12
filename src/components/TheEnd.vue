@@ -1,0 +1,118 @@
+<script setup>
+import {pad} from '../js/utils'
+import  { useResultStore } from '../stores/result';
+
+const useResult = useResultStore()
+const {resultsArr} = useResult
+
+let initialValue = {
+    time: 0,
+    mistakes: 0,
+    points: 0,
+}
+
+let totalRounds = resultsArr.reduce((acc, currentValue) => {
+    return Object.assign(acc, 
+    {
+        points: acc.points += currentValue.points,
+        time: acc.time += currentValue.time,
+        mistakes: acc.mistakes += currentValue.mistakes
+    })
+}, initialValue)
+
+const {time, points, mistakes} = totalRounds
+
+function setMinutes(secs) {
+      return pad(parseInt(secs / 60));
+}
+
+function setSeconds(secs) {
+      return pad(parseInt(secs % 60));
+}
+
+</script>
+
+<template>
+    <h2>🏁 🏁¡Final!🏁 🏁 </h2>
+    <p>Estos son tus resultados 👇👇</p>
+    <table role="grid">
+        <thead>
+            <tr>
+                <th>Ronda</th>
+                <th>Tiempo empleado</th>
+                <th>Fallos</th>
+                <th>Puntuación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="round in resultsArr">
+                <td>{{ round.level }}</td>
+                <td>{{ setMinutes(round.time) }}:{{ setSeconds(round.time) }}</td>
+                <td>{{ round.mistakes }}</td>
+                <td>{{ round.points }}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>TOTAL</td>
+                <td>{{ setMinutes(time) }}:{{ setSeconds(time) }}</td>
+                <td>{{ mistakes }}</td>
+                <td>{{ points }}</td>
+            </tr>
+        </tfoot>
+    </table>
+    <p class="save-para">¡Guarda tu puntuación!</p>
+    <form action="" @submit.prevent="" class="form">
+        <input type="text" placeholder="Nombre o nickname">
+        <button class="btn" @click="">Envíar puntuación</button>
+    </form>
+    <div class="ranking">
+        <a href="">Ver Ranking</a> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+        </svg>
+    </div>
+</template>
+
+<style scoped>
+
+h2{
+    margin-bottom: 0.5rem;
+}
+.form{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: 1px solid lightgray;
+    box-shadow: 0 0 20px rgba(211, 211, 211, 0.589);
+    background-color: #f6f8f9;
+    border-radius: 10px;
+}
+
+.btn{
+    font-size: 0.8rem;
+    max-width: 200px;
+}
+
+p{
+    font-weight: 700;
+}
+
+.ranking{
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    margin: 0 0 1rem 0;
+}
+
+.save-para{
+    margin-bottom: 0.5rem;
+}
+
+tfoot > tr > td {
+    font-weight: 700;
+}
+</style>
