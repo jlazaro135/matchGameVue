@@ -19,8 +19,8 @@ const renderLevel = ref(props.level)
     <div class="box-game">
         <span class="level">Nivel {{renderLevel}}</span>
         <span class="level-counter">
-            Intentos:
-            <span class="counter">{{useCounter.levelCounter}}</span>
+            Fallos:
+            <span class="counter">{{useCounter.levelCounter }}</span>
         </span>
         <span class="timmer">
            Tiempo: <span class="minutes">{{useTimer.levelMinutes}}</span>:<span class="seconds">{{useTimer.levelSeconds}}</span>

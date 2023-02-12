@@ -10,8 +10,10 @@ export const useGridStore = defineStore("grid", () => {
     let isFourthRound = ref(false)
     let isFifthRound = ref(false)
     let isTheEnd = ref(false)
+    let currentLevel = ref(null)
 
     return {
+        currentLevel,
         isStartView,
         isFirstRound,
         isSecondRound,

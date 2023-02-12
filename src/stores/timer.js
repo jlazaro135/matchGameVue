@@ -1,14 +1,15 @@
 import { defineStore } from "pinia";
 import { ref, watch } from "vue";
 
+
 export const useTimerStore = defineStore("timer", () => {
 
   let levelMinutes = ref('00')
   let levelSeconds = ref('00')
   let totalTimer = ref(0)
   let stopInterval = ref(false)
-
   let totalLevelSeconds = ref(0);
+  let totalLevelSecondsArr = ref([])
   
   let levelInterval
 
@@ -43,6 +44,7 @@ export const useTimerStore = defineStore("timer", () => {
       levelSeconds,
       levelMinutes,
       totalLevelSeconds,
-      stopInterval
+      stopInterval,
+      totalLevelSecondsArr
   }
 })

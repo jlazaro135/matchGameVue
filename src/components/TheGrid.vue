@@ -1,17 +1,18 @@
 <script setup>
+import  { useOpenModalStore } from '../stores/openModal';
+import  { useCounterStore } from '../stores/counter';
+import { useTimerStore } from '../stores/timer';
+import { useGridStore } from '../stores/grid';
 import { ref, toRefs, onMounted } from 'vue';
 import { countryCodeIban } from '../js/flags';
 import shuffleArray from '../js/utils';
 import TheModal from './TheModal.vue';
-import  { useOpenModalStore } from '../stores/openModal';
-import  { useCounterStore } from '../stores/counter';
 import TheDisplayGame from './TheDisplayGame.vue';
-import { useTimerStore } from '../stores/timer';
 
 const useTimer = useTimerStore()
-
 const useOpenModal = useOpenModalStore() 
 const useCounter = useCounterStore() 
+const useGrid = useGridStore() 
 
 const props = defineProps({
     cards: {
@@ -28,7 +29,9 @@ const props = defineProps({
     grid: String
 })
 
-const { cards } = toRefs(props)
+const { cards,level } = toRefs(props)
+
+useGrid.currentLevel = level.value
 
 let cardsNumber = cards.value
 
@@ -62,8 +65,6 @@ function flipCard(index, flag){
     if(indexExist)return
     selectedFlags.value = [...selectedFlags.value, {index: index, flag: flag}]
     if(selectedFlags.value.length === 2){
-        useCounter.totalCounter ++
-        useCounter.levelCounter ++
         if(selectedFlags.value[0].flag.code === selectedFlags.value[1].flag.code){
             setTimeout(function(){
                 guessedFlags.value = [...guessedFlags.value, selectedFlags.value[0].flag]
@@ -80,6 +81,8 @@ function flipCard(index, flag){
         setTimeout(function(){
             selectedFlags.value = []
         },1000)
+        useCounter.totalCounter ++
+        useCounter.levelCounter ++
     }
 }
 
@@ -207,11 +210,13 @@ animation: rotateCardGuessed 500ms forwards;
     background-color: #dfdfdf;
     display: grid;
     place-content: space-between;
+    justify-content: center;
     gap: 0.1rem;
 }
 
 .img{
     border-radius: 5px;
+    max-height: 3.75rem;
 }
 .country-name{
     font-size: 0.5rem;
