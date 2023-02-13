@@ -4,20 +4,19 @@ import { apiClient } from '../js/apiClient';
 import {API_RANKING}  from '../js/const'
 import { dateToLocale }  from '../js/utils'
 
-let getData = ref(null)
+let getData = ref([])
 let dataLoaded = ref(false)
 let initItem = ref(0)
 let endItem = ref(10)
 let entries = ref(10)
 
-getData.value = apiClient.get(API_RANKING.concat('user'))
 let dataLength = ref(null)
 
 async function fetchData(){
     try{
         getData.value = await apiClient.get(API_RANKING.concat('user'))
+    
         dataLength.value = getData.value.length
-        console.log(endItem.value >= dataLength.value)
         setTimeout(() => dataLoaded.value = true, 1000)
     }catch{
 
@@ -58,7 +57,7 @@ onMounted(() => {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(user, index) in getData.splice(initItem, endItem)" :key="index">
+                <tr v-for="(user, index) in getData.slice(initItem, endItem)" :key="index">
                     <td>{{ index + 1 }}</td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.points }}</td>
@@ -67,10 +66,10 @@ onMounted(() => {
             </tbody>
         </table>
         <div class="buttons-wrapper">
-            <button href="#" role="button" @click="goNextPage()" :disabled="initItem === 0">
+            <button href="#" role="button" @click="goPreviousPage()" :disabled="initItem === 0">
             Anterior
             </button>
-            <button href="#" role="button" @click="goPreviousPage()" :disabled="checkLength">
+            <button href="#" role="button" @click="goNextPage()" :disabled="checkLength">
             Siguiente
             </button>
         </div>
