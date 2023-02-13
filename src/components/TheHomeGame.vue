@@ -83,6 +83,7 @@ const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isF
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+    padding: 1rem 0;
     justify-content: center;
     align-items: center;
     text-align: center;
