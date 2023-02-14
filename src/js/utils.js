@@ -27,7 +27,7 @@ export function pad(val) {
   }
 
 export function dateToLocale(date){
-  let d = new Date()
-  return d.toLocaleDateString(date)
+  let d = new Date(date)
+  return d.toLocaleDateString()
 }
   
