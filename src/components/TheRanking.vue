@@ -9,6 +9,7 @@ let dataLoaded = ref(false)
 let initItem = ref(0)
 let endItem = ref(10)
 let entries = ref(10)
+let select = ref('select')
 
 let dataLength = ref(null)
 
@@ -26,11 +27,19 @@ async function fetchData(){
 function goNextPage(){
     initItem.value += entries.value
     endItem.value += entries.value
+    console.log(initItem.value, endItem.value)
 }
 
 function goPreviousPage(){
     initItem.value -= entries.value
     endItem.value -= entries.value
+}
+
+function handleChange(){
+    entries.value = +select.value.value
+    initItem.value = 0
+    endItem.value = +select.value.value
+    console.log(entries.value, endItem.value)
 }
 
 let checkLength = computed(() => endItem.value >= dataLength.value ? true : false )
@@ -42,11 +51,20 @@ onMounted(() => {
 </script>
 
 <template>
+    <h2>🎖️ Ranking </h2>
     <div v-if="!dataLoaded" class="loader">
         <p aria-busy="true">Cargando Ranking...</p>
     </div>
     <div v-else class="table-wrapper">
-        <h2>🎖️ Ranking </h2>
+        <div class="select-wrapper">
+            <label for="showItems">Nº resultados</label>
+            <select @change="handleChange()" name="showItems" id="select" ref="select">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="25" :disabled="dataLength < 25">25</option>
+                <option value="50" :disabled="dataLength < 25">50</option>
+            </select>
+        </div>
         <table role="grid">
             <thead>
                 <tr>
@@ -79,11 +97,12 @@ onMounted(() => {
 <style scoped>
 
 h2{
-    margin-bottom: 0.5rem;
+    margin-bottom: auto;
 }
 
-.table-wrapper{
+.table-wrapper, .loader{
     width: 100%;
+    margin-bottom: auto;
 }
 
 .buttons-wrapper{
@@ -93,5 +112,10 @@ h2{
 
 button{
     width: fit-content;
+}
+
+.select-wrapper{
+    width: fit-content;
+    margin-left: auto;
 }
 </style>
