@@ -27,7 +27,6 @@ async function fetchData(){
 function goNextPage(){
     initItem.value += entries.value
     endItem.value += entries.value
-    console.log(initItem.value, endItem.value)
 }
 
 function goPreviousPage(){
@@ -39,11 +38,9 @@ function handleChange(){
     entries.value = +select.value.value
     initItem.value = 0
     endItem.value = +select.value.value
-    console.log(entries.value, endItem.value)
 }
 
 function reload(){
-    console.log('hola')
     window.location.reload()
 }
 

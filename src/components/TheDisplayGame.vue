@@ -58,4 +58,11 @@ const renderLevel = ref(props.level)
     font-weight: bold;
 }
 
+@media screen and (min-width: 992px){
+    .box-game{
+        left: auto;
+        right: 1%;
+    }
+}
+
 </style>

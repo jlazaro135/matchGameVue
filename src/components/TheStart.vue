@@ -102,7 +102,7 @@ function startGame(){
 </script>
 
 <template>
-    <h2>Match the country!</h2>
+    <img src="../../public/logo.png" alt="logo">
     <p>Pon a prueba tu memoria y encuentra las parejas en el menor tiempo posible</p>
     <button @click="startGame()">Empezar juego</button>
     <button class="contrast" data-target="modal-example" @click="toggleModal($event)">Instrucciones</button>
@@ -147,5 +147,9 @@ ul{
     text-align: left;
     margin-left: auto;
     margin-right: auto;
+}
+
+img{
+  max-width: 400px;
 }
 </style>

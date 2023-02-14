@@ -3,6 +3,7 @@ import  { useOpenModalStore } from '../stores/openModal';
 import  { useCounterStore } from '../stores/counter';
 import { useTimerStore } from '../stores/timer';
 import { useGridStore } from '../stores/grid';
+import { usePointsStore } from '../stores/points';
 import { ref, toRefs, onMounted } from 'vue';
 import { countryCodeIban } from '../js/flags';
 import shuffleArray from '../js/utils';
@@ -13,6 +14,7 @@ const useTimer = useTimerStore()
 const useOpenModal = useOpenModalStore() 
 const useCounter = useCounterStore() 
 const useGrid = useGridStore() 
+const usePoints = usePointsStore() 
 
 const props = defineProps({
     cards: {
@@ -83,6 +85,7 @@ function flipCard(index, flag){
         },1000)
         useCounter.totalCounter ++
         useCounter.levelCounter ++
+        usePoints.doubleBanForMistake = useCounter.levelCounter > (cardsNumber/2)
     }
 }
 
@@ -134,7 +137,7 @@ onMounted(() => {
     display: flex;
     flex-wrap: wrap;
     align-content: center;
-    max-width: 450px;
+    max-width: 600px;
     justify-content: center;
     min-height: 100vh;
     margin: 0 auto;
@@ -235,6 +238,12 @@ animation: rotateCardGuessed 500ms forwards;
     }
     100% {
         transform:rotateY(180deg) rotate(360deg);
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1400px){
+    .o-flex{
+        max-width: 380px;
     }
 }
 </style>

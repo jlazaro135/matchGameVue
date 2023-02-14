@@ -40,7 +40,6 @@ const {grid, level} = toRefs(props)
 function goToNext(){
   useOpenModal.isOpen = false
   useResult.resultsArr.push({level: level.value, time:useTimer.totalLevelSeconds, mistakes: useCounter.levelCounter, points: usePoints.finalPoints().totalPoints() })
-  console.log(useResult.resultsArr)
   usePoints.levelPointsArr.push(usePoints.finalPoints().totalPoints())
   useTimer.stopInterval = false
   useTimer.totalTimer += useTimer.totalLevelSeconds

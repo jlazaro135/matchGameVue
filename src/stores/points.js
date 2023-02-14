@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { useTimerStore } from '../stores/timer';
 import  { useCounterStore } from '../stores/counter';
 import  { useGridStore } from '../stores/grid';
+import { ref } from "vue";
 
 export const usePointsStore = defineStore("points", () => {
     
@@ -16,6 +17,7 @@ export const usePointsStore = defineStore("points", () => {
     let levelPointsArr = []
     let totalBanForTime
     let totalBanForMistake
+    let doubleBanForMistake = ref(false)
 
     let finalPoints = () =>{
         let secondsSectionPassed = Math.floor(useTimer.totalLevelSeconds/Math.max(10, 10 + ((useGrid.currentLevel - 1) * 5)))
@@ -30,6 +32,11 @@ export const usePointsStore = defineStore("points", () => {
             totalBanForMistake = useCounter.levelCounter * banForMistake
             rewardForFullMatch = 0
         }
+
+        if(doubleBanForMistake.value){
+            totalBanForMistake = useCounter.levelCounter * (banForMistake*2)
+        }
+
         return {
             points: (startingPoints * useGrid.currentLevel) - totalBanForMistake - totalBanForTime,
             extra: rewardForFullMatch,
@@ -41,6 +48,7 @@ export const usePointsStore = defineStore("points", () => {
     
     return {
         levelPointsArr,
-        finalPoints
+        finalPoints,
+        doubleBanForMistake
     }
 })
