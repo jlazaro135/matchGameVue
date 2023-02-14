@@ -71,11 +71,23 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+
+.bg-animation{
   background: repeating-linear-gradient(
     45deg,
     #fff,
     #fff 10px,
-    #def3ff 10px,
-    #def3ff 20px
-  );
+    #b5e2fc 10px,
+    #b5e2fc 20px
+    );
+    background-size: 200% 200%;
+    animation: barberpole 8s linear infinite;
+}
+  
+@keyframes barberpole {
+  100% {
+    background-position: 100% 100%;
+  }
 }

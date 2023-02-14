@@ -32,25 +32,26 @@ const renderLevel = ref(props.level)
 .box-game{
     position: absolute;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
-    top: 2%;
-    right: 1%;
+    align-items: center;
+    top: 1%;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
     width: 100%;
-    max-width: 225px;
+    max-width: 300px;
     background-color: #007fff;
     color: #fff;
     border-radius: 5px;
-    padding: 0.5rem;
+    padding: 0.3rem;
 }
 
 .level{
-    width: 100%;
     font-size: 1.1rem;
     font-weight: 700;
     text-align: center;
-    padding-bottom: 0.2rem;
-    border-bottom: 1px solid #fff;
+    padding-right: 0.5rem;
+    border-right: 1px solid #fff;
 }
 
 .level-counter, .timmer{

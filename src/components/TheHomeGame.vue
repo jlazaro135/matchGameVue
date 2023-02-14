@@ -7,12 +7,12 @@ import { useGridStore } from '../stores/grid';
 import { storeToRefs } from 'pinia';
 
 const useGrid = useGridStore()
-const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isFifthRound, isEndView, isRankingView} = storeToRefs(useGrid)
+const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isFifthRound, isEndView, isRankingView, bgAnimation} = storeToRefs(useGrid)
 
 </script>
 
 <template>
-  <main class="container">
+  <main class="container-fluid" :class="{'bg-animation': bgAnimation}">
     <div class="start-view" v-if="isStartView">
         <TheStart />
     </div>

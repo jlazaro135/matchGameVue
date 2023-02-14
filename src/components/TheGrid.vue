@@ -87,11 +87,14 @@ function flipCard(index, flag){
 }
 
 onMounted(() => {
+    useGrid.bgAnimation = true
     setTimeout(() => flipAllCards.value = true, 1000 )
     setTimeout(() => {
         flipAllCards.value = false
         cardsAreFlipped.value = false
+
     } , 2000 )
+    setTimeout(() => useGrid.bgAnimation = false, 2500)
 })
 
 

@@ -42,6 +42,11 @@ function handleChange(){
     console.log(entries.value, endItem.value)
 }
 
+function reload(){
+    console.log('hola')
+    window.location.reload()
+}
+
 let checkLength = computed(() => endItem.value >= dataLength.value ? true : false )
 
 onMounted(() => {
@@ -87,6 +92,7 @@ onMounted(() => {
             <button href="#" role="button" @click="goPreviousPage()" :disabled="initItem === 0">
             Anterior
             </button>
+            <button class="secondary" @click="reload()">JUGAR OTRA VEZ</button>
             <button href="#" role="button" @click="goNextPage()" :disabled="checkLength">
             Siguiente
             </button>

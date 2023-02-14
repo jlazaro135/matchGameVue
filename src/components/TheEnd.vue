@@ -18,7 +18,7 @@ const showInput = ref(true)
 let initialValue = {
     time: 0,
     mistakes: 0,
-    points: 1260,
+    points: 0,
 
 }
 
