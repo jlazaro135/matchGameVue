@@ -116,19 +116,55 @@ function startGame(){
             </a>
             <h3>Instrucciones del juego</h3>
             <p>
-                El juego cuenta con cinco niveles en los que habrá que emparejar diferentes países: 
+                El juego cuenta con cinco rondas en las que habrá que encontrar la pareja de cada país. A medida que vayas avanzando
+                de ronda la dificultad irá aumentando: 
             </p>
             <ul>
-                <li>Primer nivel: 8 países</li>
-                <li>Segundo nivel: 12 países</li>
-                <li>Tercer nivel: 16 países</li>
-                <li>Cuarto nivel: 20 países</li>
-                <li>Quinto nivel: 24 países</li>
+                <li>Primera ronda: 4 países / 8 cartas</li>
+                <li>Segunda ronda: 6 países / 12 cartas</li>
+                <li>Tercera ronda: 8 países / 16 cartas</li>
+                <li>Cuarta ronda: 10 países / 20 cartas</li>
+                <li>Quinta ronda: 12 países / 24 cartas</li>
             </ul>
             <p>
-                Deberás completarlo en el menor tiempo posible con el menor número de intentos posibles. Un intento 
-                se computará cada vez que descubras dos países.
+                Deberás completarlo en el menor tiempo posible con el menor número de fallos posibles.
             </p>
+            <p>
+                El sistema de puntuación es simple: se parte desde una puntuación máxima y
+                según el tiempo que emplees en emparejar todas los países junto con los fallos acumulados se irá restando (o no!) dicha puntuación.
+                La puntuación máxima que puedes obtener varía según la ronda:
+            </p>
+            <ul>
+                <li>Primera ronda: 1000 puntos</li>
+                <li>Segunda ronda: 2000 puntos</li>
+                <li>Tercera ronda: 3000 puntos</li>
+                <li>Cuarta ronda: 4000 puntos</li>
+                <li>Quinta ronda: 5000 puntos</li>
+            </ul>
+            <p>
+                Por cada fallo se resta 50 puntos. Si el número de fallos supera el número de países que hay en la ronda, los fallos pasan a restar 100 puntos.
+            </p>
+            <p>
+                El tiempo que tardas en completar penaliza de la siguiente forma:
+            </p>
+            <ul>
+                <li>Primera ronda: Cada 10 segundos resta 100 puntos</li>
+                <li>Segunda ronda: Cada 15 segundos resta 200 puntos</li>
+                <li>Tercera ronda: Cada 20 segundos resta 300 puntos</li>
+                <li>Cuarta ronda: Cada 25 segundos resta 400 puntoss</li>
+                <li>Quinta ronda: Cada 30 segundos resta 500 puntos</li>
+            </ul>
+            <p>
+                Si logras completar la ronda sin fallos obtienes una recompesa. La recompesa será mayor cuanto más difícil sea la ronda:
+            </p>
+            <ul>
+                <li>Primera ronda: + 100 puntos</li>
+                <li>Segunda ronda: + 200 puntos</li>
+                <li>Tercera ronda: + 300 puntos</li>
+                <li>Cuarta ronda: + 400 puntoss</li>
+                <li>Quinta ronda: + 500 puntos</li>
+            </ul>
+            <p>Ahh...! No olvides registrar tu puntuación al final. ¡A jugar!</p>
             <footer>
             <a href="#confirm"
                 role="button"
@@ -150,6 +186,6 @@ ul{
 }
 
 img{
-  max-width: 400px;
+  max-width: 250px;
 }
 </style>

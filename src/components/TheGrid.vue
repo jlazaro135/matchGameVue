@@ -137,7 +137,7 @@ onMounted(() => {
     display: flex;
     flex-wrap: wrap;
     align-content: center;
-    max-width: 600px;
+    max-width: 440px;
     justify-content: center;
     min-height: 100vh;
     margin: 0 auto;
@@ -244,6 +244,18 @@ animation: rotateCardGuessed 500ms forwards;
 @media screen and (min-width: 992px) and (max-width: 1400px){
     .o-flex{
         max-width: 380px;
+    }
+}
+
+@media screen and (min-width: 350px) and (max-width: 992px){
+    .o-flex{
+        max-width: 85%;
+    }
+}
+
+@media screen and (min-height: 900px){
+    .o-flex{
+        max-width: 560px;
     }
 }
 </style>

@@ -7,8 +7,8 @@ import { dateToLocale }  from '../js/utils'
 let getData = ref([])
 let dataLoaded = ref(false)
 let initItem = ref(0)
-let endItem = ref(10)
-let entries = ref(10)
+let endItem = ref(5)
+let entries = ref(5)
 let select = ref('select')
 
 let dataLength = ref(null)
@@ -16,7 +16,8 @@ let dataLength = ref(null)
 async function fetchData(){
     try{
         getData.value = await apiClient.get(API_RANKING.concat('user'))
-    
+        getData.value.forEach((data, i) => data['pos'] = i+1 )
+        console.log(getData.value)
         dataLength.value = getData.value.length
         setTimeout(() => dataLoaded.value = true, 1000)
     }catch{
@@ -61,10 +62,10 @@ onMounted(() => {
         <div class="select-wrapper">
             <label for="showItems">Nº resultados</label>
             <select @change="handleChange()" name="showItems" id="select" ref="select">
-                <option value="5">5</option>
-                <option value="10" selected>10</option>
-                <option value="25" :disabled="dataLength < 25">25</option>
-                <option value="50" :disabled="dataLength < 25">50</option>
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option v-if="dataLength >= 25" value="25">25</option>
+                <option v-if="dataLength >= 50" value="50">50</option>
             </select>
         </div>
         <table role="grid">
@@ -77,8 +78,13 @@ onMounted(() => {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(user, index) in getData.slice(initItem, endItem)" :key="index">
-                    <td>{{ index + 1 }}</td>
+                <tr v-for="(user) in getData.slice(initItem, endItem)" :key="user.pos">
+                    <td>
+                        {{ user.pos }} 
+                        {{user.pos === 1 ? '🥇' : ''}}
+                        {{user.pos === 2 ? '🥈' : ''}}
+                        {{user.pos === 3 ? '🥉' : ''}}
+                    </td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.points }}</td>
                     <td>{{ dateToLocale(user.created_at) }}</td>
