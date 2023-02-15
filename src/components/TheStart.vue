@@ -3,7 +3,7 @@ import { storeToRefs } from 'pinia';
 import { useGridStore } from '../stores/grid';
 
 const useGrid = useGridStore()
-const {isStartView, isFirstRound} = storeToRefs(useGrid)
+const {isStartView, isFirstRound, isRankingView} = storeToRefs(useGrid)
 
 // Config
 const isOpenClass = 'modal-is-open';
@@ -99,6 +99,11 @@ function startGame(){
     isFirstRound.value = true
 }
 
+function seeRanking(){
+    isStartView.value = false
+    isRankingView.value = true
+}
+
 </script>
 
 <template>
@@ -106,6 +111,7 @@ function startGame(){
     <p>Pon a prueba tu memoria y encuentra la pareja de cada bandera en el menor tiempo posible</p>
     <button @click="startGame()">Empezar juego</button>
     <button class="contrast" data-target="modal-example" @click="toggleModal($event)">Instrucciones</button>
+    <button @click="seeRanking()">Ver Ranking</button>
     <dialog id="modal-example">
         <article>
             <a href="#close"

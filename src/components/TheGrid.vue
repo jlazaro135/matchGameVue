@@ -104,7 +104,7 @@ onMounted(() => {
 </script>   
 
 <template>      
-    <div class="o-flex"> 
+    <div class="o-grid"> 
         <div class="card" v-for="(country, index) in flagsForGame" :key="index">
             <div class="card-inner" 
             :class="
@@ -144,18 +144,28 @@ onMounted(() => {
     gap: 0.5rem;
 }
 
+.o-grid{
+    display: grid;
+    align-content: center;
+    max-width: 450px;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0 auto;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
 .card{
     background-color: transparent;
     border-radius: 5px;
     display: grid;
     place-items: center;
     perspective: 1000px;
-    width: 23%;
     
 }
 .card-inner{
     position: relative;
-    height: 100%;
+    /* height: 100%; */
     width: 100%;
     aspect-ratio: 1/1;
     text-align: center;
@@ -225,6 +235,7 @@ animation: rotateCardGuessed 500ms forwards;
     max-height: 3.75rem;
 }
 .country-name{
+    color: #000;
     font-size: 0.5rem;
     line-height: 1;
     font-weight: 700;
