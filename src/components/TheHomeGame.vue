@@ -74,7 +74,7 @@ const {isStartView, isFirstRound, isSecondRound, isThirdRound, isFourthRound,isF
     justify-content: center;
     align-items: center;
     text-align: center;
-    max-width: 400px;
+    max-width: 415px;
     width: 100%;
 }
 

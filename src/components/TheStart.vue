@@ -102,8 +102,8 @@ function startGame(){
 </script>
 
 <template>
-    <img src="../../public/logo.png" alt="logo">
-    <p>Pon a prueba tu memoria y encuentra las parejas en el menor tiempo posible</p>
+    <img src="../../public/logo.png" alt="logo" width="500" height="500">
+    <p>Pon a prueba tu memoria y encuentra la pareja de cada bandera en el menor tiempo posible</p>
     <button @click="startGame()">Empezar juego</button>
     <button class="contrast" data-target="modal-example" @click="toggleModal($event)">Instrucciones</button>
     <dialog id="modal-example">
@@ -116,22 +116,22 @@ function startGame(){
             </a>
             <h3>Instrucciones del juego</h3>
             <p>
-                El juego cuenta con cinco rondas en las que habrá que encontrar la pareja de cada país. A medida que vayas avanzando
+                El juego cuenta con cinco rondas en las que habrá que encontrar la pareja de cada bandera. A medida que vayas avanzando
                 de ronda la dificultad irá aumentando: 
             </p>
             <ul>
-                <li>Primera ronda: 4 países / 8 cartas</li>
-                <li>Segunda ronda: 6 países / 12 cartas</li>
-                <li>Tercera ronda: 8 países / 16 cartas</li>
-                <li>Cuarta ronda: 10 países / 20 cartas</li>
-                <li>Quinta ronda: 12 países / 24 cartas</li>
+                <li>Primera ronda: 4 banderas / 8 cartas</li>
+                <li>Segunda ronda: 6 banderas / 12 cartas</li>
+                <li>Tercera ronda: 8 banderas / 16 cartas</li>
+                <li>Cuarta ronda: 10 banderas / 20 cartas</li>
+                <li>Quinta ronda: 12 banderas / 24 cartas</li>
             </ul>
             <p>
                 Deberás completarlo en el menor tiempo posible con el menor número de fallos posibles.
             </p>
             <p>
                 El sistema de puntuación es simple: se parte desde una puntuación máxima y
-                según el tiempo que emplees en emparejar todas los países junto con los fallos acumulados se irá restando (o no!) dicha puntuación.
+                según el tiempo que emplees en emparejar todas los banderas junto con los fallos acumulados se irá restando (o no!) dicha puntuación.
                 La puntuación máxima que puedes obtener varía según la ronda:
             </p>
             <ul>
@@ -142,7 +142,7 @@ function startGame(){
                 <li>Quinta ronda: 5000 puntos</li>
             </ul>
             <p>
-                Por cada fallo se resta 50 puntos. Si el número de fallos supera el número de países que hay en la ronda, los fallos pasan a restar 100 puntos.
+                Por cada fallo se resta 50 puntos. Si el número de fallos supera el número de banderas que hay en la ronda, los fallos pasan a restar 100 puntos.
             </p>
             <p>
                 El tiempo que tardas en completar penaliza de la siguiente forma:

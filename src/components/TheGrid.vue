@@ -150,7 +150,7 @@ onMounted(() => {
     display: grid;
     place-items: center;
     perspective: 1000px;
-    flex: 1 1 23%;
+    width: 23%;
     
 }
 .card-inner{
@@ -249,7 +249,7 @@ animation: rotateCardGuessed 500ms forwards;
 
 @media screen and (min-width: 350px) and (max-width: 992px){
     .o-flex{
-        max-width: 85%;
+        max-width: 600px;
     }
 }
 

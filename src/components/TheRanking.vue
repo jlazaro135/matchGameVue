@@ -17,7 +17,6 @@ async function fetchData(){
     try{
         getData.value = await apiClient.get(API_RANKING.concat('user'))
         getData.value.forEach((data, i) => data['pos'] = i+1 )
-        console.log(getData.value)
         dataLength.value = getData.value.length
         setTimeout(() => dataLoaded.value = true, 1000)
     }catch{
