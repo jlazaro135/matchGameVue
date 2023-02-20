@@ -20,7 +20,6 @@ export const useTimerStore = defineStore("timer", () => {
           clearInterval(levelInterval)
           return
       }
-      console.log('eey')
       setTimeout(() => levelInterval = setInterval(setTime, 1000), 2000)
   })
 
