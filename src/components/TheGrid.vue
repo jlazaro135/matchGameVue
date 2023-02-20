@@ -15,6 +15,7 @@ const useOpenModal = useOpenModalStore()
 const useCounter = useCounterStore() 
 const useGrid = useGridStore() 
 const usePoints = usePointsStore() 
+const ONE_SEC = 1000
 
 const props = defineProps({
     cards: {
@@ -28,10 +29,12 @@ const props = defineProps({
         type: Number,
         default: 2
     },
-    grid: String
+    grid: String,
 })
 
 const { cards,level } = toRefs(props)
+const cardsTimeShown = ONE_SEC * level.value === 1000 ? 2000 : ONE_SEC * level.value
+cards
 
 useGrid.currentLevel = level.value
 
@@ -91,13 +94,14 @@ function flipCard(index, flag){
 
 onMounted(() => {
     useGrid.bgAnimation = true
-    setTimeout(() => flipAllCards.value = true, 1000 )
+    setTimeout(() => flipAllCards.value = true,  ONE_SEC)
     setTimeout(() => {
         flipAllCards.value = false
         cardsAreFlipped.value = false
 
-    } , 2000 )
-    setTimeout(() => useGrid.bgAnimation = false, 2500)
+    } , cardsTimeShown )
+    setTimeout(() => useGrid.bgAnimation = false, cardsTimeShown + 500)
+    console.log(cardsTimeShown,ONE_SEC, cardsTimeShown + 500)
 })
 
 
